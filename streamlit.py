@@ -22,14 +22,14 @@ st.divider()
 
 gender = st.radio("Select a gender:",["Male","Female"])
 age = st.number_input("Enter your Age",min_value=0, max_value=110)
-urea = st.number_input("Enter Your Urea Level in mmol/L", min_value=1, max_value=14)
-creatine = st.number_input("Enter Your Creatine Level in Umol/L", min_value=1, max_value=100)
-HbA1c = st.number_input("Enter Your Average Blood Glucose in mmol/L", min_value=1, max_value=100)
-Chol = st.number_input("Enter Your Cholesterol level in mmol/L", min_value=0, max_value=10)
-Tg = st.number_input("Enter Your Triglycerides level in mmol/L", min_value=0, max_value=8)
-Hdl = st.number_input("Enter Your HDL Cholesteron level in mmol/L", min_value=0, max_value=6)
-Ldl = st.number_input("Enter Your LDL Cholesteron level in mmol/L", min_value=0, max_value=6)
-Vldl = st.number_input("Enter Your VLDL Cholesteron level in mmol/L", min_value=0, max_value=5)
+urea = st.number_input("Enter Your Urea Level in mmol/L",min_value=0.0, max_value=14.0, step=0.1)
+creatine = st.number_input("Enter Your Creatine Level in Umol/L",min_value=0, max_value=100)
+HbA1c = st.number_input("Enter Your Average Blood Glucose in mmol/L", min_value=0.0, max_value=100.0, step=0.1)
+Chol = st.number_input("Enter Your Cholesterol level in mmol/L", min_value=0.0, max_value=10.0, step=0.1)
+Tg = st.number_input("Enter Your Triglycerides level in mmol/L", min_value=0.0, max_value=8.0, step=0.1)
+Hdl = st.number_input("Enter Your HDL Cholesteron level in mmol/L",min_value=0.0, max_value=6.0, step=0.1)
+Ldl = st.number_input("Enter Your LDL Cholesteron level in mmol/L",min_value=0.0, max_value=6.0, step=0.1)
+Vldl = st.number_input("Enter Your VLDL Cholesteron level in mmol/L", min_value=0.0, max_value=35.0, step=0.1)
 Bmi = st.number_input("Enter Your Body Mass Index", min_value=15, max_value=50)
 
 predict = st.button("Predict Diabetes")
@@ -61,7 +61,12 @@ if predict:
     input_df = pd.DataFrame(data)
     prediction = model.predict(input_df)[0][0]
     proba = model.predict_proba(input_df)[0].max()
-    st.success(prediction_map.get(prediction))
+    prob=model.predict_proba(input_df)
+    print(prob)
+    if(prediction==0):
+        st.success(prediction_map.get(prediction))
+    else:
+        st.error(prediction_map.get(prediction))
     st.write(f"BTW mate, we are like {proba*100:.1f}% sure of this answer")
 
 
