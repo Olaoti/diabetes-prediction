@@ -31,7 +31,9 @@ Tg = st.number_input("Enter Your Triglycerides level in mmol/L", min_value=0.0, 
 Hdl = st.number_input("Enter Your HDL Cholesteron level in mmol/L",min_value=0.0, max_value=6.0, step=0.1)
 Ldl = st.number_input("Enter Your LDL Cholesteron level in mmol/L",min_value=0.0, max_value=6.0, step=0.1)
 Vldl = st.number_input("Enter Your VLDL Cholesteron level in mmol/L", min_value=0.0, max_value=35.0, step=0.1)
-Bmi = st.number_input("Enter Your Body Mass Index", min_value=15, max_value=50)
+height = st.number_input("Enter Your Height in cm", min_value=5, max_value=250)
+weight = st.number_input("Enter Your Weight in kg", min_value=1, max_value=200)
+
 
 predict = st.button("Predict Diabetes")
 
@@ -57,7 +59,7 @@ if predict:
         "HDL":[Hdl],
         "LDL":[Ldl],
         "VLDL":[Vldl],
-        "BMI":[Bmi]
+        "BMI":[weight/(height/100)**2]
     }
     input_df = pd.DataFrame(data)
     prediction = model.predict(input_df)[0][0]
