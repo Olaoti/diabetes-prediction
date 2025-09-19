@@ -4,3 +4,4 @@ numpy
 catboost
 seaborn 
 matplotlib
+joblib
